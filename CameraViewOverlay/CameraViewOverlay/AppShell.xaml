@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Shell
+    x:Class="CameraViewOverlay.AppShell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:CameraViewOverlay;assembly=CameraViewOverlay"
+    xmlns:sys="clr-namespace:System;assembly=netstandard"
+    xmlns:views1="clr-namespace:CameraViewOverlay.Views;assembly=CameraViewOverlay"
+    FlyoutBackgroundImageAspect="AspectFill"
+    FlyoutHeaderBehavior="CollapseOnScroll">
+
+    <Shell.Resources>
+        <Style x:Key="BaseStyle"
+               TargetType="Element">
+            <Setter Property="Shell.BackgroundColor"
+                    Value="DarkSlateGray" />
+            <Setter Property="Shell.ForegroundColor"
+                    Value="White" />
+            <Setter Property="Shell.TitleColor"
+                    Value="White" />
+            <Setter Property="Shell.DisabledColor"
+                    Value="#B4FFFFFF" />
+            <Setter Property="Shell.UnselectedColor"
+                    Value="#95FFFFFF" />
+        </Style>
+        <Style TargetType="ShellItem"
+               BasedOn="{StaticResource BaseStyle}" />
+        <Style x:Key="HomeShell"
+               TargetType="Element"
+               BasedOn="{StaticResource BaseStyle}">
+            <Setter Property="Shell.BackgroundColor"
+                    Value="Green" />
+        </Style>
+    </Shell.Resources>
+
+    <!-- Template for FlyoutHeader -->
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid BackgroundColor="DarkSlateGray"
+                  HeightRequest="150">
+                <Label Text="Test"
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <!-- Template for FlyoutFooter -->
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout>
+                <Label Text="TestApp"
+                       TextColor="DarkSlateGray"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <Label Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat='{0:MMMM dd, yyyy}'}"
+                       TextColor="DarkSlateGray"
+                       HorizontalOptions="Center" />
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
+    
+
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems">
+        <ShellContent Route="HomePage"
+                      Title="Home Page"
+                      Style="{StaticResource HomeShell}"
+                      ContentTemplate="{DataTemplate views1:HomePage}" />
+        <ShellContent Route="PicturePreviewPage"
+                      Title="Picture Preview Page"
+                      Style="{StaticResource HomeShell}"
+                      ContentTemplate="{DataTemplate views1:PicturePreviewPage}" />
+        <ShellContent Route="CameraViewPage"
+                      Title="Camera view page"
+                      Style="{StaticResource HomeShell}"
+                      ContentTemplate="{DataTemplate views1:CameraViewPage}" />
+
+    </FlyoutItem>
+
+</Shell>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shapes="clr-namespace:Xamarin.Forms.Shapes;assembly=Xamarin.Forms.Core"
+             xmlns:viewModels="clr-namespace:CameraViewOverlay.ViewModels;assembly=CameraViewOverlay"
+             x:Class="CameraViewOverlay.Views.PicturePreviewPage">
+    <!--  Just for intellisense, the real BindingContext is being set on .cs file of this page  -->
+    <ContentPage.BindingContext>
+        <viewModels:PictureViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid RowDefinitions="*, 100">
+            <Image Grid.Row="0"
+                   Source="{Binding Photo}"
+                   Rotation="{Binding PhotoRotation}"
+                   BackgroundColor="Beige"
+                   Aspect="AspectFit"
+                   HorizontalOptions="FillAndExpand"
+                   VerticalOptions="FillAndExpand" />
+            <shapes:Rectangle Grid.Row="0"
+                              StrokeThickness="2"
+                              Stroke="Black"
+                              VerticalOptions="FillAndExpand"
+                              HorizontalOptions="FillAndExpand" />
+            <Button Grid.Row="1"
+                    Clicked="Button_OnClicked"
+                    Text="Open Camera"
+                    TextColor="Black"
+                    BackgroundColor="Aquamarine"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

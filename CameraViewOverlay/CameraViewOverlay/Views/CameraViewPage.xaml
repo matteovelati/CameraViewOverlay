@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:viewModels="clr-namespace:CameraViewOverlay.ViewModels;assembly=CameraViewOverlay"
+             xmlns:customComponents="clr-namespace:CameraViewOverlay.CustomComponents;assembly=CameraViewOverlay"
+             x:Class="CameraViewOverlay.Views.CameraViewPage"
+             Shell.NavBarIsVisible="False">
+    <!--  Just for intellisense, the real BindingContext is being set on .cs file of this page  --> 
+    <ContentPage.BindingContext>
+        <viewModels:PictureViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <customComponents:MediaCapturedEventArgsConverter x:Key="MediaCapturedEventArgsConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid RowDefinitions="*, Auto, Auto"
+                  ColumnDefinitions="*, *">
+                <xct:CameraView Grid.Row="0"
+                                Grid.ColumnSpan="2"
+                                x:Name="MyCameraView"
+                                MediaCaptured="MyCameraView_OnMediaCaptured"
+                                CaptureMode="Photo"
+                                CameraOptions="Back"
+                                IsAvailable="{Binding IsCameraAvailable, Mode=OneWayToSource}"
+                                FlashMode="{Binding CameraFlashMode, Mode=OneWay}"
+                                IsBusy="{Binding IsCameraBusy, Mode=OneWayToSource}"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand">
+                    <!-->
+                    <xct:CameraView.Behaviors>
+                        <xct:EventToCommandBehavior
+                            EventName="MediaCaptured"
+                            Command="{Binding MediaCapturedCommand}"
+                            EventArgsConverter="{StaticResource MediaCapturedEventArgsConverter}" />
+                    </xct:CameraView.Behaviors>
+                    <-->
+                </xct:CameraView>
+                <customComponents:OverlayView Grid.Row="0"
+                                           Grid.ColumnSpan="2"
+                                           Shape="{Binding OverlayShape, Mode=OneWay}"
+                                           VerticalOptions="FillAndExpand"
+                                           HorizontalOptions="FillAndExpand" />
+                <Grid Grid.Row="1"
+                      Grid.Column="0"
+                      ColumnDefinitions="*, *">
+                    <Switch Grid.Column="0"
+                            IsToggled="{Binding IsFlashToggled, Mode=OneWayToSource}"
+                            Margin="6, 6"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           Text="Flash"
+                           Margin="6, 6"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center" />
+                </Grid>
+
+                <Grid Grid.Row="1"
+                      Grid.Column="1"
+                      ColumnDefinitions="*, *">
+                    <Switch Grid.Column="0"
+                            IsToggled="{Binding IsShapeToggled, Mode=OneWayToSource}"
+                            Margin="6, 6"
+                            HorizontalOptions="End"
+                            VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           Text="Shape"
+                           Margin="6, 6"
+                           HorizontalOptions="Start"
+                           VerticalOptions="Center" />
+                </Grid>
+
+                <Grid Grid.Row="2"
+                      Grid.ColumnSpan="2">
+                    <Button Command="{Binding ShutterCommand, Source={x:Reference MyCameraView}}"
+                            IsEnabled="{Binding IsSnapButtonEnabled, Mode=OneWay}"
+                            Text="Snap photo"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

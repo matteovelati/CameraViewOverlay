@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CameraViewOverlay.Views.HomePage"
+             Title="Main Page">
+
+    <ContentPage.Content>
+        <Grid RowDefinitions="*, *"
+              ColumnDefinitions="*, *">
+            <StackLayout Grid.Row="0"
+                         Grid.Column="0"
+                         BackgroundColor="Honeydew"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand" />
+            <StackLayout Grid.Row="1"
+                         Grid.Column="0"
+                         BackgroundColor="LightGoldenrodYellow"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand" />
+            <StackLayout Grid.Row="0"
+                         Grid.Column="1"
+                         BackgroundColor="MintCream"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand" />
+            <StackLayout Grid.Row="1"
+                         Grid.Column="1"
+                         BackgroundColor="SeaShell"
+                         HorizontalOptions="FillAndExpand"
+                         VerticalOptions="FillAndExpand" />
+            <Label Grid.RowSpan="2"
+                   Grid.ColumnSpan="2"
+                   Text="WELCOME"
+                   TextColor="Black"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand" />
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
